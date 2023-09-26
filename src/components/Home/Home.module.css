@@ -1,0 +1,17 @@
+.nav {
+  padding: 30px 0 30px 15px;
+  background-color: gainsboro;
+  border-bottom: gray solid 1px;
+  display: flex;
+  gap: 35px;
+}
+.nav_link {
+  font-size: large;
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+.movie_name {
+  font-size: 23px;
+  font-weight: 400;
+}

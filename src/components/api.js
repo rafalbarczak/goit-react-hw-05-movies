@@ -1,20 +1,37 @@
-export async function fetchMovies(page) {
-  const API_KEY = '5577624f107f96fb286666953fd25f4f';
+const API_KEY = '5577624f107f96fb286666953fd25f4f';
 
-  return fetch(
-    `https://api.themoviedb.org/3/trending/all/day?page=${page}&api_key=${API_KEY}`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      // console.log(response.json());
-      return response.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
+const fetchFromAPI = async (endpoint, params = {}) => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}&${new URLSearchParams(
+        params
+      )}`
+    );
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(`API request failed: ${error}`);
+  }
+};
+
+export const getTrendingMovies = async () => {
+  return fetchFromAPI('/trending/all/day');
+};
+
+export const searchMovies = async query => {
+  return fetchFromAPI('/search/movie', { query });
+};
+
+export const getMovieDetails = async movieId => {
+  return fetchFromAPI(`/movie/${movieId}`);
+};
+
+export const getMovieCast = async movieId => {
+  return fetchFromAPI(`/movie/${movieId}/credits`);
+};
+
+export const getMovieReviews = async movieId => {
+  return fetchFromAPI(`/movie/${movieId}/reviews`);
+};
