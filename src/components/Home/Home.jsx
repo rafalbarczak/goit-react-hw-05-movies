@@ -36,7 +36,7 @@ export const Home = ({ onClick }) => {
             onClick={() => onClick(movie)}
             key={movie.id}
           >
-            {movie.title || movie.name}
+            {movie.title}
           </li>
         ))}
       </ul>

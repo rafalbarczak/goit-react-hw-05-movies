@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getMovieDetails } from 'components/api';
+import css from './MovieDetails.module.css';
+import { Cast } from 'components/Cast/Cast';
+import { Reviews } from 'components/Reviews/Reviews';
 
 export const MovieDetails = ({ movieId }) => {
   const [currentMovie, setCurrentMovie] = useState();
@@ -18,12 +21,51 @@ export const MovieDetails = ({ movieId }) => {
     fetchMovieDetails();
   }, [movieId]);
 
+  const buttonHandler = () => {
+    setCurrentMovie(null);
+  };
+
   return (
     <>
-      <button> Go back </button>
-      <div>
-        <img src={currentMovie._path} />
-      </div>
+      {currentMovie && (
+        <>
+          <button onClick={buttonHandler}> Go back </button>
+          <div className={css.container}>
+            <img
+              src={`https://image.tmdb.org/t/p/w400${currentMovie.poster_path}`}
+              alt="Movie poster"
+            />
+            <div>
+              <h2>
+                {`${currentMovie.title} (${currentMovie.release_date.slice(
+                  0,
+                  4
+                )})`}
+              </h2>
+              <p>
+                User score: {`${parseInt(currentMovie.vote_average * 10)}%`}
+              </p>
+              <h3>Overview</h3>
+              <p>{currentMovie.overview}</p>
+              <h3>Genres</h3>
+              <p>{currentMovie.genres.map(genre => `${genre.name} `)}</p>
+            </div>
+          </div>
+          <div>
+            <h3>Additional information</h3>
+            <ul>
+              <li>
+                <a href="#">Cast</a>
+                <Cast movieId={movieId} />
+              </li>
+              <li>
+                <a href="#">Reviews</a>
+                <Reviews movieId={movieId} />
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
     </>
   );
 };

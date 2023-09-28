@@ -1,0 +1,7 @@
+.actor {
+  display: flex;
+  flex-direction: column;
+}
+.actor img {
+  width: 200px;
+}

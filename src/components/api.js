@@ -17,7 +17,7 @@ const fetchFromAPI = async (endpoint, params = {}) => {
 };
 
 export const getTrendingMovies = async () => {
-  return fetchFromAPI('/trending/all/day');
+  return fetchFromAPI('/trending/movie/day');
 };
 
 export const searchMovies = async query => {
