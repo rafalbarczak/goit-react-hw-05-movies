@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
 import { getMovieDetails } from 'components/api';
+import {
+  Routes,
+  Route,
+  Link,
+  useParams,
+  useNavigate,
+  Outlet,
+} from 'react-router-dom';
 import css from './MovieDetails.module.css';
 import { Cast } from 'components/Cast/Cast';
 import { Reviews } from 'components/Reviews/Reviews';
 
-export const MovieDetails = ({ movieId }) => {
+export const MovieDetails = () => {
   const [currentMovie, setCurrentMovie] = useState();
+  const navigate = useNavigate();
+  const { movieId } = useParams();
   useEffect(() => {
     async function fetchMovieDetails() {
       try {
@@ -22,7 +32,7 @@ export const MovieDetails = ({ movieId }) => {
   }, [movieId]);
 
   const buttonHandler = () => {
-    setCurrentMovie(null);
+    navigate('/');
   };
 
   return (
@@ -55,17 +65,24 @@ export const MovieDetails = ({ movieId }) => {
             <h3>Additional information</h3>
             <ul>
               <li>
-                <a href="#">Cast</a>
-                <Cast movieId={movieId} />
+                {/* <a href="#">Cast</a>
+                <Cast movieId={movieId} /> */}
+                <Link to={`/movies/${movieId}/cast`}>Cast</Link>
               </li>
               <li>
-                <a href="#">Reviews</a>
-                <Reviews movieId={movieId} />
+                <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+                {/* <a href="#">Reviews</a>
+                <Reviews movieId={movieId} /> */}
               </li>
             </ul>
           </div>
+          <Outlet />
         </>
       )}
+      {/* <Routes>
+        <Route path="cast" element={<Cast />} />
+        <Route path="reviews" element={<Reviews />} />
+      </Routes> */}
     </>
   );
 };

@@ -1,0 +1,16 @@
+.nav {
+  padding: 15px;
+  background-color: gainsboro;
+  border-bottom: gray solid 1px;
+}
+.nav ul {
+  display: flex;
+  gap: 35px;
+  list-style: none;
+}
+.nav_link {
+  font-size: large;
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}

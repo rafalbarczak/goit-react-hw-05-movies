@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import css from './Home.module.css';
 import { getTrendingMovies } from 'components/api';
+// import { Movies } from 'components/Movies/Movies';
 
 export const Home = ({ onClick }) => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -21,23 +23,18 @@ export const Home = ({ onClick }) => {
 
   return (
     <>
-      <div className={css.nav}>
-        <a href="#" className={css['nav_link']}>
-          Home
-        </a>
-        <a href="#" className={css['nav_link']}>
-          Movies
-        </a>
-      </div>
       <ul>
         {trendingMovies.map(movie => (
-          <li
-            className={css['movie_name']}
-            onClick={() => onClick(movie)}
-            key={movie.id}
-          >
-            {movie.title}
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
           </li>
+          // <li
+          //   className={css['movie_name']}
+          //   onClick={() => onClick(movie)}
+          //   key={movie.id}
+          // >
+          //   {movie.title}
+          // </li>
         ))}
       </ul>
     </>
