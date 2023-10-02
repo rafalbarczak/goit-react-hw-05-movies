@@ -1,18 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { getMovieDetails } from 'components/api';
-import {
-  Routes,
-  Route,
-  Link,
-  useParams,
-  useNavigate,
-  Outlet,
-} from 'react-router-dom';
-import css from './MovieDetails.module.css';
-import { Cast } from 'components/Cast/Cast';
-import { Reviews } from 'components/Reviews/Reviews';
+import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
 
-export const MovieDetails = () => {
+import css from './MovieDetails.module.css';
+
+const MovieDetails = () => {
   const [currentMovie, setCurrentMovie] = useState();
   const navigate = useNavigate();
   const { movieId } = useParams();
@@ -20,9 +12,7 @@ export const MovieDetails = () => {
     async function fetchMovieDetails() {
       try {
         const data = await getMovieDetails(movieId);
-        console.log(data);
         setCurrentMovie(data);
-        // console.log(movieId);
       } catch (error) {
         console.log(error);
       }
@@ -36,10 +26,13 @@ export const MovieDetails = () => {
   };
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       {currentMovie && (
         <>
-          <button onClick={buttonHandler} className={css['back-btn']}> Go back </button>
+          <button onClick={buttonHandler} className={css['back-btn']}>
+            {' '}
+            Go back{' '}
+          </button>
           <div className={css.container}>
             <img
               src={`https://image.tmdb.org/t/p/w400${currentMovie.poster_path}`}
@@ -65,24 +58,18 @@ export const MovieDetails = () => {
             <h3>Additional information</h3>
             <ul>
               <li>
-                {/* <a href="#">Cast</a>
-                <Cast movieId={movieId} /> */}
                 <Link to={`/movies/${movieId}/cast`}>Cast</Link>
               </li>
               <li>
                 <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-                {/* <a href="#">Reviews</a>
-                <Reviews movieId={movieId} /> */}
               </li>
             </ul>
           </div>
           <Outlet />
         </>
       )}
-      {/* <Routes>
-        <Route path="cast" element={<Cast />} />
-        <Route path="reviews" element={<Reviews />} />
-      </Routes> */}
-    </>
+    </Suspense>
   );
 };
+
+export default MovieDetails;

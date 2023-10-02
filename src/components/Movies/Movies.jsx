@@ -2,7 +2,7 @@ import { searchMovies } from 'components/api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import css from './Movies.module.css';
-export const Movies = () => {
+const Movies = () => {
   const [query, setQuery] = useState('');
   const [searchedPhrase, setSearchedPhrase] = useState('');
   const [movies, setMovies] = useState([]);
@@ -11,7 +11,6 @@ export const Movies = () => {
       try {
         const data = await searchMovies(searchedPhrase);
         setMovies(data.results);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -26,7 +25,6 @@ export const Movies = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // onSubmit(searchedPhrase);
     setSearchedPhrase(query);
     setQuery('');
   };
@@ -35,7 +33,7 @@ export const Movies = () => {
     <>
       <form onSubmit={handleSubmit}>
         <input
-        className={css.input}
+          className={css.input}
           type="text"
           autoComplete="off"
           autoFocus
@@ -47,7 +45,6 @@ export const Movies = () => {
       </form>
       <ul>
         {movies.map(movie => (
-          // <li>{movie.title}</li>
           <li key={movie.id}>
             <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
           </li>
@@ -56,3 +53,5 @@ export const Movies = () => {
     </>
   );
 };
+
+export default Movies;
