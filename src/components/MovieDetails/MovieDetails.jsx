@@ -39,7 +39,7 @@ export const MovieDetails = () => {
     <>
       {currentMovie && (
         <>
-          <button onClick={buttonHandler}> Go back </button>
+          <button onClick={buttonHandler} className={css['back-btn']}> Go back </button>
           <div className={css.container}>
             <img
               src={`https://image.tmdb.org/t/p/w400${currentMovie.poster_path}`}

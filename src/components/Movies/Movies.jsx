@@ -1,7 +1,8 @@
 import { searchMovies } from 'components/api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-export const Movies = ({ onSubmit }) => {
+import css from './Movies.module.css';
+export const Movies = () => {
   const [query, setQuery] = useState('');
   const [searchedPhrase, setSearchedPhrase] = useState('');
   const [movies, setMovies] = useState([]);
@@ -34,6 +35,7 @@ export const Movies = ({ onSubmit }) => {
     <>
       <form onSubmit={handleSubmit}>
         <input
+        className={css.input}
           type="text"
           autoComplete="off"
           autoFocus
