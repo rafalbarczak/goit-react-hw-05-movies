@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/936.4381c4a8.chunk.css","mappings":"AAAA,wBACE,cAAe,CACf,eACF","sources":["pages/Home/Home.module.css"],"sourcesContent":[".movie_name {\n  font-size: 23px;\n  font-weight: 400;\n}\n"],"names":[],"sourceRoot":""}
