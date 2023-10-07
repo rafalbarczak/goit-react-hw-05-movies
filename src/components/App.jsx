@@ -2,9 +2,9 @@ import css from './App.module.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
-const Home = lazy(() => import('./Home/Home'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
-const Movies = lazy(() => import('./Movies/Movies'));
+const Home = lazy(() => import('../pages/Home/Home'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
+const Movies = lazy(() => import('../pages/Movies/Movies'));
 const Reviews = lazy(() => import('./Reviews/Reviews'));
 const Cast = lazy(() => import('./Cast/Cast'));
 
