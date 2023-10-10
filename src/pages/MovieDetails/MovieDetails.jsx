@@ -1,13 +1,13 @@
 import { Suspense, useEffect, useState } from 'react';
 import { getMovieDetails } from 'components/api';
-import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
-
+import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
 import css from './MovieDetails.module.css';
+import NoPosterImage from '../../movie.jpg';
 
 const MovieDetails = () => {
   const [currentMovie, setCurrentMovie] = useState();
-  const navigate = useNavigate();
   const { movieId } = useParams();
+  const location = useLocation();
   useEffect(() => {
     async function fetchMovieDetails() {
       try {
@@ -21,23 +21,23 @@ const MovieDetails = () => {
     fetchMovieDetails();
   }, [movieId]);
 
-  const buttonHandler = () => {
-    navigate('/');
-  };
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       {currentMovie && (
         <>
-          <button onClick={buttonHandler} className={css['back-btn']}>
+          <Link to={location.state?.from ?? '/'} className={css['back-btn']}>
             {' '}
             Go back{' '}
-          </button>
+          </Link>
           <div className={css.container}>
-            <img
-              src={`https://image.tmdb.org/t/p/w400${currentMovie.poster_path}`}
-              alt="Movie poster"
-            />
+            {currentMovie.poster_path ? (
+              <img
+                src={`https://image.tmdb.org/t/p/w400${currentMovie.poster_path}`}
+                alt="Movie poster"
+              />
+            ) : (
+              <img src={NoPosterImage} alt="No poster found" />
+            )}
             <div>
               <h2>
                 {`${currentMovie.title} (${currentMovie.release_date.slice(

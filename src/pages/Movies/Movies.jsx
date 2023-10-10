@@ -25,12 +25,14 @@ const Movies = () => {
 
   const handleChange = e => {
     // setQuery(e.target.value);
-    setSearchParams({ query: e.target.value });
+    // setSearchParams({ query: e.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     navigate(`/movies?query=${query}`);
+    const form = e.currentTarget;
+    setSearchParams({ query: form.elements.query.value });
     // setSearchedPhrase(query);
     // setQuery('');
   };
@@ -41,10 +43,11 @@ const Movies = () => {
         <input
           className={css.input}
           type="text"
+          name="query"
           autoComplete="off"
           autoFocus
           placeholder="Search a movie"
-          value={query}
+          // value={query}
           onChange={handleChange}
         />
         <button type="submit">Search</button>
@@ -56,7 +59,12 @@ const Movies = () => {
           <ul>
             {movies.map(movie => (
               <li key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                <Link
+                  to={`/movies/${movie.id}`}
+                  state={{ from: `/movies?query=${query}` }}
+                >
+                  {movie.title}
+                </Link>
               </li>
             ))}
           </ul>

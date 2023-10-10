@@ -8,4 +8,14 @@
   margin-top: 10px;
   margin-left: 10px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  background-color: lightgray;
+  padding: 5px;
+  color: black;
+  border-radius: 5px;
+}
+.back-btn:hover {
+  color: white;
+  background-color: grey;
 }

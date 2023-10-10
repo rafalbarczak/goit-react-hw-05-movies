@@ -2,6 +2,8 @@ import { getMovieCast } from 'components/api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import css from './Cast.module.css';
+import NoActorPhoto from '../../avatar.png';
+
 const Cast = () => {
   const [currentMovieCast, setCurrentMovieCast] = useState(null);
   const { movieId } = useParams();
@@ -24,10 +26,14 @@ const Cast = () => {
         <ul>
           {currentMovieCast.map(member => (
             <li className={css.actor} key={member.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
-                alt={`${member.name}`}
-              />
+              {member.profile_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
+                  alt={`${member.name}`}
+                />
+              ) : (
+                <img src={NoActorPhoto} alt="no img found" />
+              )}
               <span>{member.name}</span>
               <span>Character: {member.character}</span>
             </li>
